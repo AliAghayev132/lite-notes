@@ -154,13 +154,13 @@ public class NotesActivity extends LiteActivity {
 
     private void menu() {
         Sheet.menu(root, "Lite Notes", new String[]{L.t("Hamısını .md faylı kimi ixrac et"), L.t("Ehtiyat nüsxə saxla"),
-                L.t("Ehtiyat nüsxədən bərpa et"), L.t("Dil") + " / Language"}, i -> {
+                L.t("Ehtiyat nüsxədən bərpa et"), ("en".equals(L.lang()) ? "Language" : L.t("Dil") + " / Language")}, i -> {
             if (i == 3) {
                 String[] names = new String[L.CODES.length];
                 for (int k = 0; k < names.length; k++) {
                     names[k] = (L.CODES[k].equals(L.lang()) ? "●  " : "") + L.NAMES[k];
                 }
-                Sheet.menu(root, L.t("Dil") + " / Language", names, k -> {
+                Sheet.menu(root, ("en".equals(L.lang()) ? "Language" : L.t("Dil") + " / Language"), names, k -> {
                     if (L.CODES[k].equals(L.lang())) return;
                     L.set(this, L.CODES[k]);
                     recreate();
