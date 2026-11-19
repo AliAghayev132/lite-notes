@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LiteTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/lite_bg</item>
+        <item name="android:statusBarColor">@color/lite_bg</item>
+        <item name="android:navigationBarColor">@color/lite_bg</item>
+        <item name="android:colorAccent">#FFFFD60A</item>
+        <item name="android:colorPrimary">#FF0E0E0E</item>
+        <item name="android:textColorHighlight">#66FFD60A</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+    <color name="lite_bg">#FF0E0E0E</color>
+</resources>

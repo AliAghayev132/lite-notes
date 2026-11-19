@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+}
+
+def ksFile = rootProject.file('keystore.properties')
+def ks = new Properties()
+if (ksFile.exists()) ksFile.withInputStream { ks.load(it) }
+
+android {
+    namespace = 'az.lite.notes'
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = 'az.lite.notes'
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 1
+        versionName = '1.0'
+    }
+
+    sourceSets {
+        main {
+            java.srcDir('../shared/java')
+            res.srcDir('../shared/res')
+        }
+    }
+
+    signingConfigs {
+        // Google Play üçün yükləmə açarı (keystore.properties layihənin kökündə)
+        upload {
+            if (ksFile.exists()) {
+                storeFile = rootProject.file(ks['storeFile'])
+                storePassword = ks['storePassword']
+                keyAlias = ks['keyAlias']
+                keyPassword = ks['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable = false
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            signingConfig = ksFile.exists() ? signingConfigs.upload : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+}
